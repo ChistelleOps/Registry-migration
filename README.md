@@ -1,5 +1,19 @@
 # Registry-migration
 
+# Playbook: Automated Registry Migration (Google Artifact Registry to Cloudsmith)
+
+## 📋 Executive Summary
+This playbook details the architecture, strategy, and execution steps used to migrate our organization's container image registry from **Google Artifact Registry (GAR)** to **Cloudsmith**. 
+
+To eliminate manual overhead, local storage constraints, and human error, we built a fully programmatic migration engine. This engine automatically provisions target repositories, moves assets over network memory pipes, and updates downstream application codebases by issuing automated GitHub Pull Requests.
+
+---
+
+## 🏗️ Architecture & Core Strategy
+
+The migration framework splits operations into two cleanly decoupled automated phases:
+
+
 ### Phase 1: Registry-to-Registry Streaming
 Instead of using a traditional `docker pull -> docker tag -> docker push` loop (which demands immense local disk storage and network bandwidth), the migration engine utilizes Google's **`gcrane`** tool. 
 * Images stream directly over HTTPS from Google's infrastructure to Cloudsmith's edge endpoints.
