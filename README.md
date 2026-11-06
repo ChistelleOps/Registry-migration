@@ -58,3 +58,5 @@ When reviewing an automated migration Pull Request, engineers should verify:
 2. **Pipeline Secret Visibility:** Ensure your GitHub Actions repository settings inherit the organization-wide `CLOUDSMITH_API_KEY` secret.
 3. **Local Machine Pulls:** Update any local development environments or `.env` files to point to the new Cloudsmith endpoint.
 
+### Summary
+We successfully migrated our container ecosystem from Google Artifact Registry to Cloudsmith. To do this without causing days of downtime or manual work for our developers, we built an automated migration engine. First, it dynamically pulled all our images and streamed them straight from Google to Cloudsmith in memory. Second, it scanned all our GitHub repositories, automatically updated our Dockerfiles and Kubernetes manifests to point to Cloudsmith, rewritten our CI/CD pipelines to log into the new registry, and submitted safe Pull Requests for our engineering teams to review. What could have taken weeks of manual searching took just a few automated execution runs.
